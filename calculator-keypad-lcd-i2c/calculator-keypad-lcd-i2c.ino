@@ -2,6 +2,7 @@
 #include <LiquidCrystal_I2C.h>
 #include <Keypad.h>
 #include <Wire.h>
+#include <String.h>
 
 //ряды и столбцы клавиатуры
 const byte ROWS = 4; 
@@ -14,8 +15,8 @@ char keys[ROWS][COLS] = {
 };
 
 //пины клавиатуры
-byte rowPins[ROWS] = { 0, 1, 2, 3 };// Connect keypad ROW0, ROW1, ROW2 and ROW3 to these Arduino pins.
-byte colPins[COLS] = { 4, 5, 6, 7 }; // Connect keypad COL0, COL1 and COL2 to these Arduino pins.
+byte rowPins[ROWS] = { 0, 1, 2, 3 };
+byte colPins[COLS] = { 4, 5, 6, 7 };
 
 //обьявляем клавиатуру и экран
 Keypad kpd = Keypad( makeKeymap(keys), rowPins, colPins, ROWS, COLS ); //  Create the Keypad
@@ -118,26 +119,21 @@ void DetectButtons()
 
   if (key == '3')
   { Serial.println ("Button 3");
-    if (Number == 0)
-      Number = 3;
-    else
-      Number = (Number * 10) + 3; 
+    if (Number == 0) Number = 3;
+    else Number = (Number * 10) + 3; 
   }
 
   if (key == '6')
   { Serial.println ("Button 6");
-    if (Number == 0)
-      Number = 6;
-    else
-      Number = (Number * 10) + 6; 
+    if (Number == 0) Number = 6;
+    else Number = (Number * 10) + 6; 
   }
 
   if (key == '9')
-  { Serial.println ("Button 9");
-    if (Number == 0)
-      Number = 9;
-    else
-      Number = (Number * 10) + 9; 
+  { 
+    Serial.println ("Button 9");
+    if (Number == 0) Number = 9;
+    else Number = (Number * 10) + 9; 
   }
 
   if (key == 'A' || key == 'B' || key == 'C' || key == 'D') 
@@ -170,20 +166,16 @@ void DetectButtons()
 
 }
 
-//считвем результат
+//считаем результат
 void CalculateResult()
 {
-  if (action == '+')
-    Number = Num1 + Num2;
+  if (action == '+') Number = Num1 + Num2;
 
-  if (action == '-')
-    Number = Num1 - Num2;
+  if (action == '-') Number = Num1 - Num2;
 
-  if (action == '*')
-    Number = Num1 * Num2;
+  if (action == '*') Number = Num1 * Num2;
 
-  if (action == '/' && Num2 !=0)
-    Number = Num1 / Num2;
+  if (action == '/' && Num2 !=0) Number = Num1 / Num2;
 }
 
 //фуркция вывода результата
